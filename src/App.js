@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import MemeEditor from './MemeEditor';
+import cat from './chemistry_cat.jpeg'
+import boramir from './one_does_not_simply.jpeg'
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+        images: [cat, boramir],
+        topText: '',
+        bottomText: '',
+        selectedImage: cat
+    }
+}
+
+selectPicture = (image) => {
+  const imageSource = image.target.src;
+  this.setState({selectedImage: imageSource})
+}
+
+setTopText = (topText) =>{
+  const text = topText.target.value;
+  this.setState({topText: text.toUpperCase()})
+}
+
+setBottomText = (bottomText) =>{
+  const text = bottomText.target.value;
+  this.setState({bottomText: text.toUpperCase()})
+}
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <MemeEditor 
+        images={this.state.images} 
+        topText={this.state.topText} 
+        bottomText={this.state.bottomText} 
+        selectedImage={this.state.selectedImage}
+        selectPicture={this.selectPicture}
+        setTopText={this.setTopText}
+        setBottomText={this.setBottomText}/>
       </div>
     );
   }
